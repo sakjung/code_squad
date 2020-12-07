@@ -40,7 +40,9 @@ public class StringPusher {
 	}
 
 	public boolean isLeft() {
-		return direction.equalsIgnoreCase("l");
+		// positive + l || negative + r
+		return (0 <= numberOfPush && direction.equalsIgnoreCase("l")
+				|| numberOfPush < 0 && direction.equalsIgnoreCase("r"));
 	}
 
 	public String getString() {
