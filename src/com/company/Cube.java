@@ -26,7 +26,8 @@ public class Cube {
 	}
 
 	private boolean isLeft() {
-		// if char comes with ' = right
+		// if char comes with ' = right -> if string length is 2 = right
+
 
 	}
 
