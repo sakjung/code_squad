@@ -31,8 +31,8 @@ public class StringPusher {
 		}
 	}
 
-	private void validateLeftRight(String leftOrRight) {
-		if (!(leftOrRight.equalsIgnoreCase("l")) && !(leftOrRight.equalsIgnoreCase("r"))) {
+	private void validateLeftRight(String direction) {
+		if (!(direction.equalsIgnoreCase("l")) && !(direction.equalsIgnoreCase("r"))) {
 			throw new IllegalArgumentException();
 		}
 	}
