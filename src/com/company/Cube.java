@@ -25,7 +25,12 @@ public class Cube {
 		}
 	}
 
-	public void pushString() {
+	private boolean isLeft() {
+		// if char comes with ' = right
+
+	}
+
+	public void pushString(String string) {
 		int cut = Math.abs(CHANGE) % SIZE;
 		if (isLeft()) {
 			// push to left
