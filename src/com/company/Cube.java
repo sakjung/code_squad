@@ -30,7 +30,12 @@ public class Cube {
 
 	}
 
-	public void pushString(String string) {
+	private String getString(String command) {
+
+	}
+
+	public void pushString(String command) {
+		String string = getString(command);
 		int cut = Math.abs(CHANGE) % SIZE;
 		if (isLeft()) {
 			// push to left
@@ -41,4 +46,9 @@ public class Cube {
 		string = string.substring(string.length() - cut) + string.substring(0, string.length() - cut);
 	}
 
+	public void changeCube(String command) {
+		// get string from cube
+		// push string according to command
+		// put it back to cube
+	}
 }

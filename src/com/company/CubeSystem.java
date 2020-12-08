@@ -26,18 +26,21 @@ public class CubeSystem {
 		return !commandComponents.isEmpty() && commandComponents.peek().equals("'");
 	}
 
+	private static String createSingleCommand(Queue<String> commandComponents) {
+		String command = commandComponents.poll();
+		if (hasAdditionalCommandComponent(commandComponents)) {
+			command = command + commandComponents.poll();
+		}
+		return command;
+	}
+
 	private static List<String> getCommands(Scanner scanner) {
 		System.out.print(CLI);
 		Queue<String> commandComponents = getCommandComponents(scanner);
 		List<String> commands = new ArrayList<String>();
 		while (!commandComponents.isEmpty()) {
-			String thisCommand = commandComponents.poll();
-			if (hasAdditionalCommandComponent(commandComponents)) {
-				thisCommand = thisCommand + commandComponents.poll();
-				commands.add(thisCommand);
-				continue;
-			}
-			commands.add(thisCommand);
+			String command = createSingleCommand(commandComponents);
+			commands.add(command);
 		}
 		return commands;
 	}
