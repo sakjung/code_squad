@@ -16,6 +16,11 @@ public class Cube {
 			{"G", "B", "B"}
 	};
 
+	public Cube() {
+		showCube();
+		System.out.println();
+	}
+
 	public void showCube() {
 		for (String[] row : cube) {
 			System.out.println(String.join(" ", row));
