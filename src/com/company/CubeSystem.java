@@ -5,17 +5,9 @@ import java.util.*;
 public class CubeSystem {
 	private static final String CLI = "CUBE JOA> ";
 
-	public static void playCube(Cube cube, Scanner scanner) {
-		List<String> commands = getCommands(scanner);
-		for (String command : commands) {
-			// each command implemented
-		}
-
-	}
-
 	private static Queue<String> getCommandComponents(Scanner scanner) {
 		char[] commandComponents = scanner.nextLine().toCharArray();
-		Queue<String> commandComponentsQueue = new LinkedList<String>();
+		Queue<String> commandComponentsQueue = new LinkedList<>();
 		for (char commandComponent : commandComponents) {
 			commandComponentsQueue.add(String.valueOf(commandComponent));
 		}
@@ -29,7 +21,7 @@ public class CubeSystem {
 	private static String createSingleCommand(Queue<String> commandComponents) {
 		String command = commandComponents.poll();
 		if (hasAdditionalCommandComponent(commandComponents)) {
-			command = command + commandComponents.poll();
+			command += commandComponents.poll();
 		}
 		return command;
 	}
@@ -37,7 +29,7 @@ public class CubeSystem {
 	private static List<String> getCommands(Scanner scanner) {
 		System.out.print(CLI);
 		Queue<String> commandComponents = getCommandComponents(scanner);
-		List<String> commands = new ArrayList<String>();
+		List<String> commands = new ArrayList<>();
 		while (!commandComponents.isEmpty()) {
 			String command = createSingleCommand(commandComponents);
 			commands.add(command);
@@ -46,11 +38,15 @@ public class CubeSystem {
 	}
 
 	private static void runCommand(Cube cube, String command) {
-		System.out.println(command);
-		// get 3 length string
-		// left or right
-		// change cube
-		// print cube status
+		cube.changeCube(command);
 		cube.showCube();
+	}
+
+	public static void playCube(Cube cube, Scanner scanner) {
+		List<String> commands = getCommands(scanner);
+		for (String command : commands) {
+			runCommand(cube, command);
+		}
+		System.out.println();
 	}
 }
