@@ -9,7 +9,7 @@ public class Cube {
 	* G C W
 	* G B B */
 
-	String[][] cube = {
+	private String[][] cube = {
 			{"R", "R", "W"},
 			{"G", "C", "W"},
 			{"G", "B", "B"}
@@ -28,7 +28,6 @@ public class Cube {
 	private boolean isLeft() {
 		// if char comes with ' = right -> if string length is 2 = right
 
-
 	}
 
 	public void pushString(String string) {
@@ -41,4 +40,5 @@ public class Cube {
 		// push to right
 		string = string.substring(string.length() - cut) + string.substring(0, string.length() - cut);
 	}
+
 }
