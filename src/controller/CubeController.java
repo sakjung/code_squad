@@ -6,11 +6,13 @@ import view.View;
 
 import java.util.*;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class CubeController {
 	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
 		for (char commandComponent : userInput.toCharArray()) {
-			if (!Commands.commands().contains(Character.toString(commandComponent))) {
+			if (!Commands.commands().contains(Character.toString(commandComponent)) &&
+			!Commands.commandsToLowerCase().contains(Character.toString(commandComponent))) {
 				throw new IllegalArgumentException(Messages.NOT_AVAILABLE_INPUT_ERROR.getMessage());
 			}
 		}
@@ -25,7 +27,7 @@ public class CubeController {
 		}
 	}
 
-	public static String getValidCommandInput(Scanner scanner) {
+	private static String getValidCommandInput(Scanner scanner) {
 		try {
 			String input = View.getUserInput(scanner);
 			validateAvailableCommandComponents(input);
@@ -41,7 +43,7 @@ public class CubeController {
 		char[] userCommandInput = getValidCommandInput(scanner).toCharArray();
 		Queue<String> commandComponents = new LinkedList<>();
 		for (char commandComponent : userCommandInput) {
-			commandComponents.add(String.valueOf(commandComponent));
+			commandComponents.add(Character.toString(commandComponent));
 		}
 		return commandComponents;
 	}

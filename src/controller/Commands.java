@@ -27,6 +27,13 @@ public enum Commands {
 	public static List<String> commands() {
 		return Arrays.stream(values())
 				.map(Commands::getCommand)
-				.collect(Collectors.toUnmodifiableList());
+				.collect(Collectors.toList());
+	}
+
+	public static List<String> commandsToLowerCase() {
+		return Arrays.stream(values())
+				.map(Commands::getCommand)
+				.map(String::toLowerCase)
+				.collect(Collectors.toList());
 	}
 }
