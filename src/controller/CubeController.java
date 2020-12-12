@@ -1,6 +1,7 @@
 package controller;
 
 import domain.Side;
+import view.Messages;
 import view.View;
 
 import java.util.*;
@@ -10,23 +11,24 @@ public class CubeController {
 
 	private static Queue<String> getCommandComponents(Scanner scanner) {
 		char[] commandComponents = View.getUserInput(scanner).toCharArray();
-		Queue<String> commandComponentsQueue = new LinkedList<>();
+		Queue<String> commands = new LinkedList<>();
 		for (char commandComponent : commandComponents) {
-			commandComponentsQueue.add(String.valueOf(commandComponent));
+			commands.add(String.valueOf(commandComponent));
 		}
-		return commandComponentsQueue;
+		return commands;
 	}
 
-	private static boolean hasAdditionalCommandComponent(Queue<String> commandComponents) {
-		return !commandComponents.isEmpty() && commandComponents.peek().equals("'");
+	private static boolean hasAdditionalCommandComponent(Queue<String> commands) {
+		return !commands.isEmpty() &&
+				(commands.peek().equals(Commands.TO_RIGHT.getCommand()) || commands.peek().equals(Commands.TWICE.getCommand()));
 	}
 
-	private static String createSingleCommand(Queue<String> commandComponents) {
-		String command = commandComponents.poll();
-		if (hasAdditionalCommandComponent(commandComponents)) {
-			command += commandComponents.poll();
-			if (hasAdditionalCommandComponent(commandComponents)) {
-				command += commandComponents.poll();
+	private static String createSingleCommand(Queue<String> commands) {
+		String command = commands.poll();
+		if (hasAdditionalCommandComponent(commands)) {
+			command += commands.poll();
+			if (hasAdditionalCommandComponent(commands)) {
+				command += commands.poll();
 			}
 		}
 		return command;
