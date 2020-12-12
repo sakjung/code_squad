@@ -1,8 +1,10 @@
-package com.company;
+package controller;
+
+import domain.Side;
 
 import java.util.*;
 
-public class CubeSystem {
+public class CubeController {
 	private static final String CLI = "CUBE JOA> ";
 
 	private static Queue<String> getCommandComponents(Scanner scanner) {
@@ -37,15 +39,15 @@ public class CubeSystem {
 		return commands;
 	}
 
-	private static void runCommand(Cube cube, String command) {
-		cube.changeCube(command);
-		cube.showCube();
+	private static void runCommand(Side side, String command) {
+		side.changeCube(command);
+		side.showCube();
 	}
 
-	public static void playCube(Cube cube, Scanner scanner) {
+	public static void playCube(Side side, Scanner scanner) {
 		List<String> commands = getCommands(scanner);
 		for (String command : commands) {
-			runCommand(cube, command);
+			runCommand(side, command);
 		}
 		System.out.println();
 	}

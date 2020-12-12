@@ -1,6 +1,9 @@
-package com.company;
+package domain;
 
-public class Cube {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Side {
 	private static final int SIZE = 3;
 	private static final int CHANGE = 1;
 	private static final String QUIT_MESSAGE = "Bye~";
@@ -10,26 +13,31 @@ public class Cube {
 	 * G C W
 	 * G B B */
 
-	private final String[][] cube = {
-			{"R", "R", "W"},
-			{"G", "C", "W"},
-			{"G", "B", "B"}
-	};
+	private String[][] side;
 
-	public Cube() {
-		showCube();
-		System.out.println();
+	public Side(String color) {
+		side = createSide(color);
+	}
+
+	private String[][] createSide(String color) {
+		String[][] side = new String[3][3];
+		for (int i = 0; i < SIZE; i++) {
+			for (int j = 0; j < SIZE; j++) {
+				side[i][j] = color;
+			}
+		}
+		return side;
 	}
 
 	public void showCube() {
-		for (String[] row : cube) {
+		for (String[] row : side) {
 			System.out.println(String.join(" ", row));
 		}
 	}
 
 	private String getRightString() {
 		String string = "";
-		for (String[] row : cube) {
+		for (String[] row : side) {
 			string += row[2];
 		}
 		return string;
@@ -38,13 +46,13 @@ public class Cube {
 	private void setRightString(String stringPushed) {
 		char[] newStrings = stringPushed.toCharArray();
 		for (int row = 0; row < SIZE; row++) {
-			cube[row][2] = String.valueOf(newStrings[row]);
+			side[row][2] = String.valueOf(newStrings[row]);
 		}
 	}
 
 	private String getLeftString() {
 		String string = "";
-		for (String[] row : cube) {
+		for (String[] row : side) {
 			string += row[0];
 		}
 		return string;
@@ -53,29 +61,29 @@ public class Cube {
 	private void setLeftString(String stringPushed) {
 		char[] newStrings = stringPushed.toCharArray();
 		for (int row = 0; row < SIZE; row++) {
-			cube[row][1] = String.valueOf(newStrings[row]);
+			side[row][1] = String.valueOf(newStrings[row]);
 		}
 	}
 
 	private String getUpperString() {
-		return String.join("", cube[0]);
+		return String.join("", side[0]);
 	}
 
 	private void setUpperString(String stringPushed) {
 		char[] newStrings = stringPushed.toCharArray();
 		for (int col = 0; col < SIZE; col++) {
-			cube[0][col] = String.valueOf(newStrings[col]);
+			side[0][col] = String.valueOf(newStrings[col]);
 		}
 	}
 
 	private String getBottomString() {
-		return String.join("", cube[2]);
+		return String.join("", side[2]);
 	}
 
 	private void setBottomString(String stringPushed) {
 		char[] newStrings = stringPushed.toCharArray();
 		for (int col = 0; col < SIZE; col++) {
-			cube[2][col] = String.valueOf(newStrings[col]);
+			side[2][col] = String.valueOf(newStrings[col]);
 		}
 	}
 

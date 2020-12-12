@@ -1,4 +1,4 @@
-package com.company;
+package controller;
 
 public class StringPusher {
 	private static final int LOWER_BOUND = -100;
