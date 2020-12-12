@@ -4,15 +4,32 @@ import domain.Side;
 import view.View;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class CubeController {
 	// check inputs (not in the option list) -> exception
-	private static void validateAvailableCommandComponents(Queue<String> commandComponents) throws IllegalArgumentException {
-		for (String commandComponent : commandComponents) {
+	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
+		for (char commandComponent : userInput.toCharArray()) {
 			if (!Commands.commands().contains(commandComponent)) {
 				throw new IllegalArgumentException();
 			}
 		}
+	}
+
+	private static void validateMalformedCommand(String userInput) {
+		Pattern consecutivePattern = Pattern.compile("2{2}|'{2}"); // consecutive 2 or '
+		Pattern wrongPositionPattern = Pattern.compile("2'"); // ' after 2
+
+		if (consecutivePattern.matcher(userInput).find() || wrongPositionPattern.matcher(userInput).find()) {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	private static String getValidCommandInput(Scanner scanner) {
+		String input = View.getUserInput(scanner);
+		validateAvailableCommandComponents(input);
+		validateMalformedCommand(input);
+		return input;
 	}
 
 	private static Queue<String> getCommandComponents(Scanner scanner) {
