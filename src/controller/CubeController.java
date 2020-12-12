@@ -1,6 +1,7 @@
 package controller;
 
 import domain.Side;
+import view.View;
 
 import java.util.*;
 
@@ -8,7 +9,7 @@ public class CubeController {
 	private static final String CLI = "CUBE JOA> ";
 
 	private static Queue<String> getCommandComponents(Scanner scanner) {
-		char[] commandComponents = scanner.nextLine().toCharArray();
+		char[] commandComponents = View.getUserInput(scanner).toCharArray();
 		Queue<String> commandComponentsQueue = new LinkedList<>();
 		for (char commandComponent : commandComponents) {
 			commandComponentsQueue.add(String.valueOf(commandComponent));
@@ -24,12 +25,14 @@ public class CubeController {
 		String command = commandComponents.poll();
 		if (hasAdditionalCommandComponent(commandComponents)) {
 			command += commandComponents.poll();
+			if (hasAdditionalCommandComponent(commandComponents)) {
+				command += commandComponents.poll();
+			}
 		}
 		return command;
 	}
 
 	private static List<String> getCommands(Scanner scanner) {
-		System.out.print(CLI);
 		Queue<String> commandComponents = getCommandComponents(scanner);
 		List<String> commands = new ArrayList<>();
 		while (!commandComponents.isEmpty()) {
