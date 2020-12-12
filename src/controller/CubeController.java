@@ -1,17 +1,17 @@
 package controller;
 
 import domain.Side;
+import view.Messages;
 import view.View;
 
 import java.util.*;
 import java.util.regex.Pattern;
 
 public class CubeController {
-	// check inputs (not in the option list) -> exception
 	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
 		for (char commandComponent : userInput.toCharArray()) {
-			if (!Commands.commands().contains(commandComponent)) {
-				throw new IllegalArgumentException();
+			if (!Commands.commands().contains(Character.toString(commandComponent))) {
+				throw new IllegalArgumentException(Messages.NOT_AVAILABLE_INPUT_ERROR.getMessage());
 			}
 		}
 	}
@@ -21,19 +21,24 @@ public class CubeController {
 		Pattern wrongPositionPattern = Pattern.compile("2'"); // ' after 2
 
 		if (consecutivePattern.matcher(userInput).find() || wrongPositionPattern.matcher(userInput).find()) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(Messages.MALFORMED_INPUT_ERROR.getMessage());
 		}
 	}
 
-	private static String getValidCommandInput(Scanner scanner) {
-		String input = View.getUserInput(scanner);
-		validateAvailableCommandComponents(input);
-		validateMalformedCommand(input);
-		return input;
+	public static String getValidCommandInput(Scanner scanner) {
+		try {
+			String input = View.getUserInput(scanner);
+			validateAvailableCommandComponents(input);
+			validateMalformedCommand(input);
+			return input;
+		} catch (IllegalArgumentException e) {
+			System.out.println(e.getMessage());
+			return getValidCommandInput(scanner);
+		}
 	}
 
 	private static Queue<String> getCommandComponents(Scanner scanner) {
-		char[] userCommandInput = View.getUserInput(scanner).toCharArray();
+		char[] userCommandInput = getValidCommandInput(scanner).toCharArray();
 		Queue<String> commandComponents = new LinkedList<>();
 		for (char commandComponent : userCommandInput) {
 			commandComponents.add(String.valueOf(commandComponent));

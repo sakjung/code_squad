@@ -14,18 +14,19 @@ public enum Commands {
 	TO_RIGHT("'"),
 	TWICE("2");
 
-	private String option;
+	private String command;
 
-	Commands(String option) {
-		this.option = option;
+	Commands(String command) {
+		this.command = command;
 	}
 
 	public String getCommand() {
-		return option;
+		return command;
 	}
 
 	public static List<String> commands() {
-		return Arrays.stream(values()).map(Commands::getCommand)
+		return Arrays.stream(values())
+				.map(Commands::getCommand)
 				.collect(Collectors.toUnmodifiableList());
 	}
 }
