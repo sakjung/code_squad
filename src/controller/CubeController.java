@@ -1,21 +1,27 @@
 package controller;
 
 import domain.Side;
-import view.Messages;
 import view.View;
 
 import java.util.*;
 
 public class CubeController {
-	private static final String CLI = "CUBE JOA> ";
+	// check inputs (not in the option list) -> exception
+	private static void validateAvailableCommandComponents(Queue<String> commandComponents) throws IllegalArgumentException {
+		for (String commandComponent : commandComponents) {
+			if (!Commands.commands().contains(commandComponent)) {
+				throw new IllegalArgumentException();
+			}
+		}
+	}
 
 	private static Queue<String> getCommandComponents(Scanner scanner) {
-		char[] commandComponents = View.getUserInput(scanner).toCharArray();
-		Queue<String> commands = new LinkedList<>();
-		for (char commandComponent : commandComponents) {
-			commands.add(String.valueOf(commandComponent));
+		char[] userCommandInput = View.getUserInput(scanner).toCharArray();
+		Queue<String> commandComponents = new LinkedList<>();
+		for (char commandComponent : userCommandInput) {
+			commandComponents.add(String.valueOf(commandComponent));
 		}
-		return commands;
+		return commandComponents;
 	}
 
 	private static boolean hasAdditionalCommandComponent(Queue<String> commands) {
@@ -26,9 +32,9 @@ public class CubeController {
 	private static String createSingleCommand(Queue<String> commands) {
 		String command = commands.poll();
 		if (hasAdditionalCommandComponent(commands)) {
-			command += commands.poll();
+			command += commands.poll(); // add '
 			if (hasAdditionalCommandComponent(commands)) {
-				command += commands.poll();
+				command += commands.poll(); // add 2
 			}
 		}
 		return command;

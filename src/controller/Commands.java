@@ -24,7 +24,7 @@ public enum Commands {
 		return option;
 	}
 
-	public List<String> getCommands() {
+	public static List<String> commands() {
 		return Arrays.stream(values()).map(Commands::getCommand)
 				.collect(Collectors.toUnmodifiableList());
 	}
