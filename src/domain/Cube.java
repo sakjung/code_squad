@@ -34,7 +34,7 @@ public class Cube {
 		sides.add(side);
 	}
 
-	private static List<String> getLocationsToChange(String command) {
+	private List<String> getLocationsToChange(String command) {
 		if (Commands.getFirstCommandComponent(command).equals(Commands.U.getCommand())
 				|| Commands.getFirstCommandComponent(command).equals(Commands.D.getCommand())) {
 			return Arrays.asList(Commands.F.getCommand(),
@@ -55,7 +55,7 @@ public class Cube {
 				Commands.D.getCommand());
 	}
 
-	private static List<Side> getSidesToChange(String command) {
+	public List<Side> getSidesToChange(String command) {
 		return sides.stream()
 				.filter(side -> getLocationsToChange(command).contains(side.getLocation()))
 				.collect(Collectors.toList());

@@ -40,4 +40,12 @@ public enum Commands {
 	public static String getFirstCommandComponent(String command) {
 		return Character.toString(command.charAt(0));
 	}
+
+	public static boolean isLeft(String command) {
+		return !command.contains(TO_RIGHT.command);
+	}
+
+	public static boolean isQuarterRotate(String command) {
+		return !command.contains(TWICE.command);
+	}
 }
