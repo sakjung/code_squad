@@ -34,30 +34,9 @@ public class Cube {
 		sides.add(side);
 	}
 
-	private List<String> getLocationsToChange(String command) {
-		if (Commands.getFirstCommandComponent(command).equals(Commands.U.getCommand())
-				|| Commands.getFirstCommandComponent(command).equals(Commands.D.getCommand())) {
-			return Arrays.asList(Commands.F.getCommand(),
-					Commands.B.getCommand(),
-					Commands.L.getCommand(),
-					Commands.R.getCommand());
-		}
-		if (Commands.getFirstCommandComponent(command).equals(Commands.F.getCommand())
-				|| Commands.getFirstCommandComponent(command).equals(Commands.B.getCommand())) {
-			return Arrays.asList(Commands.U.getCommand(),
-					Commands.D.getCommand(),
-					Commands.L.getCommand(),
-					Commands.R.getCommand());
-		}
-		return Arrays.asList(Commands.F.getCommand(),
-				Commands.B.getCommand(),
-				Commands.U.getCommand(),
-				Commands.D.getCommand());
-	}
-
 	public List<Side> getSidesToChange(String command) {
 		return sides.stream()
-				.filter(side -> getLocationsToChange(command).contains(side.getLocation()))
+				.filter(side -> Commands.getLocationsToChange(command).contains(side.getLocation()))
 				.collect(Collectors.toList());
 	}
 }

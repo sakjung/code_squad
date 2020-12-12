@@ -20,19 +20,19 @@ public enum Commands {
 		this.command = command;
 	}
 
-	public String getCommand() {
+	public String command() {
 		return command;
 	}
 
 	public static List<String> commands() {
 		return Arrays.stream(values())
-				.map(Commands::getCommand)
+				.map(Commands::command)
 				.collect(Collectors.toList());
 	}
 
 	public static List<String> commandsToLowerCase() {
 		return Arrays.stream(values())
-				.map(Commands::getCommand)
+				.map(Commands::command)
 				.map(String::toLowerCase)
 				.collect(Collectors.toList());
 	}
@@ -47,5 +47,17 @@ public enum Commands {
 
 	public static boolean isQuarterRotate(String command) {
 		return !command.contains(TWICE.command);
+	}
+
+	public static List<String> getLocationsToChange(String command) {
+		if (getFirstCommandComponent(command).equals(U.command)
+				|| getFirstCommandComponent(command).equals(D.command)) {
+			return Arrays.asList(F.command, B.command, L.command, R.command);
+		}
+		if (getFirstCommandComponent(command).equals(F.command)
+				|| getFirstCommandComponent(command).equals(B.command)) {
+			return Arrays.asList(U.command, D.command, L.command, R.command);
+		}
+		return Arrays.asList(F.command, B.command, U.command,D.command);
 	}
 }

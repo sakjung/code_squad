@@ -55,7 +55,7 @@ public class CubeController {
 
 	private static boolean hasAdditionalCommandComponent(Queue<String> commands) {
 		return !commands.isEmpty() &&
-				(commands.peek().equals(Commands.TO_RIGHT.getCommand()) || commands.peek().equals(Commands.TWICE.getCommand()));
+				(commands.peek().equals(Commands.TO_RIGHT.command()) || commands.peek().equals(Commands.TWICE.command()));
 	}
 
 	private static String createSingleCommand(Queue<String> commands) {

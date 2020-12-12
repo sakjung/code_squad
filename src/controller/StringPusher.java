@@ -1,5 +1,9 @@
 package controller;
 
+import domain.Side;
+
+import java.util.List;
+
 public class StringPusher {
 	private static final int QUARTER_ROTATE = 3;
 	private static final int HALF_ROTATE = 6;
@@ -8,9 +12,17 @@ public class StringPusher {
 	private int numberOfPush;
 	private String direction;
 
+	// concat colors
+	private String concatenateColors(String command, List<Side> sides) {
+
+		if (Commands.isLeft()) {
+
+		}
+	}
+
 	private boolean isLeft() {
 		// positive + l || negative + r
-		return !direction.equalsIgnoreCase(Commands.TO_RIGHT.getCommand());
+		return !direction.equalsIgnoreCase(Commands.TO_RIGHT.command());
 	}
 
 	public void pushString() {
