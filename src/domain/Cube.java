@@ -3,7 +3,9 @@ package domain;
 import controller.Commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Cube {
 	private enum Color {
@@ -32,13 +34,30 @@ public class Cube {
 		sides.add(side);
 	}
 
-	private static List<Side> getSidesToChange(String command) {
-		// U, D
+	private static List<String> getLocationsToChange(String command) {
 		if (Commands.getFirstCommandComponent(command).equals(Commands.U.getCommand())
-		|| Commands.getFirstCommandComponent(command).equals(Commands.D.getCommand())) {
-			return
+				|| Commands.getFirstCommandComponent(command).equals(Commands.D.getCommand())) {
+			return Arrays.asList(Commands.F.getCommand(),
+					Commands.B.getCommand(),
+					Commands.L.getCommand(),
+					Commands.R.getCommand());
 		}
-		// F, B
-		// L, R
+		if (Commands.getFirstCommandComponent(command).equals(Commands.F.getCommand())
+				|| Commands.getFirstCommandComponent(command).equals(Commands.B.getCommand())) {
+			return Arrays.asList(Commands.U.getCommand(),
+					Commands.D.getCommand(),
+					Commands.L.getCommand(),
+					Commands.R.getCommand());
+		}
+		return Arrays.asList(Commands.F.getCommand(),
+				Commands.B.getCommand(),
+				Commands.U.getCommand(),
+				Commands.D.getCommand());
+	}
+
+	private static List<Side> getSidesToChange(String command) {
+		return sides.stream()
+				.filter(side -> getLocationsToChange(command).contains(side.getLocation()))
+				.collect(Collectors.toList());
 	}
 }

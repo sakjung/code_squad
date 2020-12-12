@@ -1,8 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Side {
 	private static final int SIZE = 3;
 	private static final int CHANGE = 1;
@@ -13,12 +10,16 @@ public class Side {
 	 * G C W
 	 * G B B */
 
-	private final String name;
+	private final String location;
 	private final String[][] side;
 
-	public Side(String name, String color) {
-		this.name = name;
+	public Side(String location, String color) {
+		this.location = location;
 		this.side = createSide(color);
+	}
+
+	public String getLocation() {
+		return location;
 	}
 
 	private String[][] createSide(String color) {
