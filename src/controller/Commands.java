@@ -36,4 +36,8 @@ public enum Commands {
 				.map(String::toLowerCase)
 				.collect(Collectors.toList());
 	}
+
+	public static String getFirstCommandComponent(String command) {
+		return Character.toString(command.charAt(0));
+	}
 }

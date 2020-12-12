@@ -13,10 +13,12 @@ public class Side {
 	 * G C W
 	 * G B B */
 
-	private String[][] side;
+	private final String name;
+	private final String[][] side;
 
-	public Side(String color) {
-		side = createSide(color);
+	public Side(String name, String color) {
+		this.name = name;
+		this.side = createSide(color);
 	}
 
 	private String[][] createSide(String color) {
@@ -29,7 +31,7 @@ public class Side {
 		return side;
 	}
 
-	public void showCube() {
+	public void showSide() {
 		for (String[] row : side) {
 			System.out.println(String.join(" ", row));
 		}

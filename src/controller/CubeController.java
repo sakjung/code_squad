@@ -1,14 +1,19 @@
 package controller;
 
-import domain.Side;
+import domain.Cube;
 import view.Messages;
 import view.View;
 
 import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class CubeController {
+	private static final List<String> commands = new ArrayList<>();
+
+	public static List<String> commands() {
+		return Collections.unmodifiableList(commands);
+	}
+
 	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
 		for (char commandComponent : userInput.toCharArray()) {
 			if (!Commands.commands().contains(Character.toString(commandComponent)) &&
@@ -64,9 +69,8 @@ public class CubeController {
 		return command;
 	}
 
-	private static List<String> getCommands(Scanner scanner) {
+	private static List<String> createCommands(Scanner scanner) {
 		Queue<String> commandComponents = getCommandComponents(scanner);
-		List<String> commands = new ArrayList<>();
 		while (!commandComponents.isEmpty()) {
 			String command = createSingleCommand(commandComponents);
 			commands.add(command);
@@ -74,15 +78,15 @@ public class CubeController {
 		return commands;
 	}
 
-	private static void runCommand(Side side, String command) {
-		side.changeCube(command);
-		side.showCube();
+	private static void runCommand(Cube cube, String command) {
+		// show command
+		// change cube
+		// show cube status
 	}
 
-	public static void playCube(Side side, Scanner scanner) {
-		List<String> commands = getCommands(scanner);
+	public static void playCube(Cube cube, Scanner scanner) {
 		for (String command : commands) {
-			runCommand(side, command);
+			runCommand(cube, command);
 		}
 		System.out.println();
 	}
