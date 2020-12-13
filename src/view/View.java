@@ -62,7 +62,7 @@ public class View {
 	}
 
 	public static void printQuitMessages(Cube cube) {
-		System.out.println(getTimeElapsed(cube));
+		System.out.println(Messages.TIME_ELAPSED.getMessage() + getTimeElapsed(cube));
 		System.out.println(Messages.NUMBER_OF_CONTROLS.getMessage() + CubeController.NUMBER_OF_CONTROLS);
 		System.out.println(Messages.QUIT_MESSAGE.getMessage());
 	}

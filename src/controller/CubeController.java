@@ -1,7 +1,6 @@
 package controller;
 
 import domain.Cube;
-import domain.Side;
 import view.Messages;
 import view.View;
 
@@ -10,11 +9,12 @@ import java.util.regex.Pattern;
 
 public class CubeController {
 	public static int NUMBER_OF_CONTROLS = 0;
+	private static int NUMBER_OF_MIX = 50;
 
 	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
 		for (char commandComponent : userInput.toCharArray()) {
 			if (!CommandComponents.commandComponents().contains(Character.toString(commandComponent)) &&
-			!CommandComponents.commandsToLowerCase().contains(Character.toString(commandComponent))) {
+					!CommandComponents.commandsToLowerCase().contains(Character.toString(commandComponent))) {
 				throw new IllegalArgumentException(Messages.NOT_AVAILABLE_INPUT_ERROR.getMessage());
 			}
 		}
@@ -80,24 +80,54 @@ public class CubeController {
 		String concatenatedColors = colorController.createConcatenatedColors(cube, fullCommand);
 		String pushedColors = colorController.push(fullCommand, concatenatedColors);
 		colorController.renewSides(cube, fullCommand, pushedColors);
-		NUMBER_OF_CONTROLS++;
 	}
 
 	private static void runCommand(Cube cube, String fullCommand) {
 		System.out.println(fullCommand.toUpperCase());
 		changeCube(cube, fullCommand);
+		NUMBER_OF_CONTROLS++;
 		View.showCube(cube);
 		System.out.println();
 	}
 
-	public static void playCube(Cube cube, Scanner scanner) {
+	public static boolean isCorrect(Cube playerCube, Cube answerCube) {
+		return playerCube.getSides().equals(answerCube.getSides());
+	}
+
+	public static void playCube(Cube playerCube, Cube answerCube, Scanner scanner) {
 		for (String command : createCommands(scanner)) {
 			if (command.equalsIgnoreCase(CommandComponents.Q.getCommandComponent())) {
-				View.printQuitMessages(cube);
+				View.printQuitMessages(playerCube);
 				return;
 			}
-			runCommand(cube, command);
+			runCommand(playerCube, command);
+			if (isCorrect(playerCube, answerCube)) {
+				System.out.println(Messages.CONGRATULATIONS.getMessage());
+				View.printQuitMessages(playerCube);
+			}
 		}
-		playCube(cube, scanner);
+		playCube(playerCube, answerCube, scanner);
+	}
+
+	public static Cube generatePlayerCube(Cube answerCube) {
+		Cube playerCube = new Cube();
+//		CubeController.mixCube(playerCube);
+		changeCube(playerCube, "U");
+		if (!isCorrect(playerCube, answerCube)) {
+			return playerCube;
+		}
+		return generatePlayerCube(answerCube);
+	}
+
+	private static String getRandomCommand(double randomToken) {
+		return CommandComponents.generateRandomFirstCommandComponent(randomToken)
+				+ CommandComponents.generateRandomAdditionalComponents(randomToken);
+	}
+
+	public static void mixCube(Cube playerCube) {
+		for (int mix = 1; mix <= NUMBER_OF_MIX; mix++) {
+			double randomToken = Math.random();
+			runCommand(playerCube, getRandomCommand(randomToken));
+		}
 	}
 }
