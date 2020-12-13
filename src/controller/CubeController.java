@@ -118,25 +118,24 @@ public class CubeController {
 		playCube(playerCube, answerCube, scanner);
 	}
 
+	private static String getRandomCommand(double randomToken1, double randomToken2, double randomToken3) {
+		return CommandComponents.generateRandomFirstCommandComponent(randomToken1)
+				+ CommandComponents.generateClockWiseCommandComponent(randomToken2)
+				+ CommandComponents.generateRotationCommandComponent(randomToken3);
+	}
+
 	private static void mixCube(Cube playerCube) {
 		for (int mix = 1; mix <= NUMBER_OF_MIX; mix++) {
-			double randomToken = Math.random();
-			runCommand(playerCube, getRandomCommand(randomToken));
+			changeCube(playerCube, getRandomCommand(Math.random(), Math.random(), Math.random()));
 		}
 	}
 
 	public static Cube generatePlayerCube(Cube answerCube) {
 		Cube playerCube = new Cube();
-		CubeController.mixCube(playerCube);
-		changeCube(playerCube, "U2");
+		mixCube(playerCube);
 		if (!isCorrect(playerCube, answerCube)) {
 			return playerCube;
 		}
 		return generatePlayerCube(answerCube);
-	}
-
-	private static String getRandomCommand(double randomToken) {
-		return CommandComponents.generateRandomFirstCommandComponent(randomToken)
-				+ CommandComponents.generateRandomAdditionalComponents(randomToken);
 	}
 }

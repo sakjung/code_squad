@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum CommandComponents {
-	F("F",0,1/6),
-	R("R",1/6,2/6),
-	U("U",2/6,3/6),
-	B("B",3/6,4/6),
-	L("L",4/6,5/6),
-	D("D",5/6,6/6),
+	F("F", 0,(double) 1/6),
+	R("R",(double) 1/6,(double) 2/6),
+	U("U",(double) 2/6,(double) 3/6),
+	B("B",(double) 3/6,(double) 4/6),
+	L("L",(double) 4/6,(double) 5/6),
+	D("D",(double) 5/6,1),
 	Q("Q",-1,-1),
-	ANTI_CLOCKWISE("'",0,1/2),
-	TWICE("2",0,1/2);
+	ANTI_CLOCKWISE("'",0,(double) 1/2),
+	TWICE("2",0,(double) 1/2);
 
 	private final String commandComponent;
 	private final double lowerBoundForRandomPick;
@@ -57,17 +57,26 @@ public enum CommandComponents {
 	public static String generateRandomFirstCommandComponent(double randomToken) {
 		return Arrays.stream(values())
 				.limit(6)
-				.filter(command -> command.lowerBoundForRandomPick <= randomToken || randomToken < command.upperBoundForRandomPick)
+				.filter(command -> Double.compare(command.lowerBoundForRandomPick, randomToken) <= 0
+						&& Double.compare(command.upperBoundForRandomPick, randomToken) > 0)
 				.map(CommandComponents::getCommandComponent)
 				.findFirst()
 				.orElseThrow();
 	}
 
-	public static String generateRandomAdditionalComponents(double randomToken) {
-		return Arrays.stream(values())
-				.skip(7)
-				.filter(command -> command.lowerBoundForRandomPick <= randomToken || randomToken < command.upperBoundForRandomPick)
-				.map(CommandComponents::getCommandComponent)
-				.collect(Collectors.joining(""));
+	public static String generateClockWiseCommandComponent(double randomToken) {
+		if (Double.compare(ANTI_CLOCKWISE.lowerBoundForRandomPick, randomToken) <= 0
+				&& Double.compare(ANTI_CLOCKWISE.upperBoundForRandomPick, randomToken) > 0) {
+			return ANTI_CLOCKWISE.commandComponent;
+		}
+		return "";
+	}
+
+	public static String generateRotationCommandComponent(double randomToken) {
+		if (Double.compare(TWICE.lowerBoundForRandomPick, randomToken) <= 0
+				&& Double.compare(TWICE.upperBoundForRandomPick, randomToken) > 0) {
+			return TWICE.commandComponent;
+		}
+		return "";
 	}
 }
