@@ -1,9 +1,11 @@
 package domain;
 
 import controller.CommandComponents;
+import controller.Controls;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class Cube {
@@ -33,9 +35,18 @@ public class Cube {
 		sides.add(side);
 	}
 
-	public List<Side> getSidesToChange(String command) {
+	private Side getSide(String location) {
 		return sides.stream()
-				.filter(side -> CommandComponents.getLocationsToChange(command).contains(side.getLocation()))
+				.filter(side -> side.getLocation().equalsIgnoreCase(location))
+				.findFirst()
+				.orElseThrow(() -> new NoSuchElementException());
+	}
+
+	public List<Side> getSidesToChange(String fullCommand) {
+		return Controls.getControl(fullCommand)
+				.getOrder()
+				.stream()
+				.map(location -> getSide(location))
 				.collect(Collectors.toList());
 	}
 }

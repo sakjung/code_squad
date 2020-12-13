@@ -1,23 +1,29 @@
 package controller;
 
+import domain.Cube;
 import domain.Side;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class StringPusher {
+public class colorPusher {
 	private static final int QUARTER_ROTATE = 3;
 	private static final int HALF_ROTATE = 6;
 
 	private String string;
 	private int numberOfPush;
-	private String direction;
+	private String colorPosition;
 
-	// what we need
-	// direction -> which part of side
+	private String joinFourSides(List<Side> sides, String colorPosition) {
+		return sides.stream()
+				.map(side -> side.getString(colorPosition))
+				.collect(Collectors.joining(""));
+	}
 
-	// concat colors
-	private String concatenateColors(String command, List<Side> sides) {
-		// wow
+	private String createConcatenatedColors(Cube cube, String fullCommand) {
+		List<Side> sides = cube.getSidesToChange(fullCommand);
+		String colorPosition = Controls.getControl(fullCommand).getColorPosition();
+		return joinFourSides(sides, colorPosition);
 	}
 
 	public void pushString(String command, String string) {

@@ -1,5 +1,7 @@
 package domain;
 
+import controller.CommandComponents;
+
 public class Side {
 	private static final int SIZE = 3;
 	private static final int CHANGE = 1;
@@ -90,22 +92,21 @@ public class Side {
 		}
 	}
 
-	private String getString(String command) {
+	public String getString(String colorPosition) {
 		// U B R L Q
-		String firstCommandComponent = String.valueOf(command.charAt(0));
-		if (firstCommandComponent.equalsIgnoreCase("U")) {
+		if (colorPosition.equalsIgnoreCase(CommandComponents.U.getCommandComponent())) {
 			return getUpperString();
 		}
-		if (firstCommandComponent.equalsIgnoreCase("B")) {
+		if (colorPosition.equalsIgnoreCase(CommandComponents.D.getCommandComponent())) {
 			return getBottomString();
 		}
-		if (firstCommandComponent.equalsIgnoreCase("R")) {
+		if (colorPosition.equalsIgnoreCase(CommandComponents.R.getCommandComponent())) {
 			return getRightString();
 		}
-		if (firstCommandComponent.equalsIgnoreCase("L")) {
+		if (colorPosition.equalsIgnoreCase(CommandComponents.L.getCommandComponent())) {
 			return getLeftString();
 		}
-		if (firstCommandComponent.equalsIgnoreCase("Q")) {
+		if (colorPosition.equalsIgnoreCase("Q")) {
 			System.out.println(QUIT_MESSAGE);
 			System.exit(0);
 		}
@@ -126,7 +127,7 @@ public class Side {
 		return string.substring(string.length() - cut) + string.substring(0, string.length() - cut);
 	}
 
-	private void setString(String command, String stringPushed) {
+	public void setString(String command, String stringPushed) {
 		System.out.println();
 		System.out.println(command);
 		String firstCommandComponent = String.valueOf(command.charAt(0));

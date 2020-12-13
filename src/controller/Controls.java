@@ -20,12 +20,12 @@ public enum Controls {
 
 	private final String command;
 	private final List<String> order;
-	private final String stringPosition;
+	private final String colorPosition;
 
-	Controls(String command, List<String> order, String stringPosition) {
+	Controls(String command, List<String> order, String colorPosition) {
 		this.command = command;
 		this.order = order;
-		this.stringPosition = stringPosition;
+		this.colorPosition = colorPosition;
 	}
 
 	public String getCommand() {
@@ -36,8 +36,8 @@ public enum Controls {
 		return order;
 	}
 
-	public String getStringPosition() {
-		return stringPosition;
+	public String getColorPosition() {
+		return colorPosition;
 	}
 
 	public static Controls getControl(String fullCommand) {

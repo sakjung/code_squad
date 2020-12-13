@@ -78,7 +78,12 @@ public class CubeController {
 		return commands;
 	}
 
-	private static void runCommand(Cube cube, String command) {
+	private static void changeCube(Cube cube, String fullCommand) {
+		//
+
+	}
+
+	private static void runCommand(Cube cube, String fullCommand) {
 		// show command
 		// change cube
 		// show cube status
