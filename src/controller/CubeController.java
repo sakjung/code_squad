@@ -55,7 +55,7 @@ public class CubeController {
 
 	private static boolean hasAdditionalCommandComponent(Queue<String> commands) {
 		return !commands.isEmpty() &&
-				(commands.peek().equals(CommandComponents.CLOCKWISE.getCommandComponent()) || commands.peek().equals(CommandComponents.TWICE.getCommandComponent()));
+				(commands.peek().equals(CommandComponents.ANTI_CLOCKWISE.getCommandComponent()) || commands.peek().equals(CommandComponents.TWICE.getCommandComponent()));
 	}
 
 	private static String createSingleCommand(Queue<String> commands) {
@@ -80,8 +80,11 @@ public class CubeController {
 
 	private static void changeCube(Cube cube, String fullCommand) {
 		// concat colors of four sides
+		String concatenatedColors = colorController.createConcatenatedColors(cube, fullCommand);
 		// push colors
+		String pushedColors = colorController.pushString(fullCommand, concatenatedColors);
 		// renew colors of four sides
+
 	}
 
 	private static void runCommand(Cube cube, String fullCommand) {

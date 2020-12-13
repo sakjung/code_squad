@@ -12,16 +12,16 @@ public class Side {
 	 * G C W
 	 * G B B */
 
-	private final String location;
+	private final String locationInCube;
 	private final String[][] side;
 
-	public Side(String location, String color) {
-		this.location = location;
+	public Side(String locationInCube, String color) {
+		this.locationInCube = locationInCube;
 		this.side = createSide(color);
 	}
 
-	public String getLocation() {
-		return location;
+	public String getLocationInCube() {
+		return locationInCube;
 	}
 
 	private String[][] createSide(String color) {
@@ -92,44 +92,28 @@ public class Side {
 		}
 	}
 
-	public String getString(String colorPosition) {
+	public String getString(String partOfSide) {
 		// U B R L Q
-		if (colorPosition.equalsIgnoreCase(CommandComponents.U.getCommandComponent())) {
+		if (partOfSide.equalsIgnoreCase(CommandComponents.U.getCommandComponent())) {
 			return getUpperString();
 		}
-		if (colorPosition.equalsIgnoreCase(CommandComponents.D.getCommandComponent())) {
+		if (partOfSide.equalsIgnoreCase(CommandComponents.D.getCommandComponent())) {
 			return getBottomString();
 		}
-		if (colorPosition.equalsIgnoreCase(CommandComponents.R.getCommandComponent())) {
+		if (partOfSide.equalsIgnoreCase(CommandComponents.R.getCommandComponent())) {
 			return getRightString();
 		}
-		if (colorPosition.equalsIgnoreCase(CommandComponents.L.getCommandComponent())) {
+		if (partOfSide.equalsIgnoreCase(CommandComponents.L.getCommandComponent())) {
 			return getLeftString();
 		}
-		if (colorPosition.equalsIgnoreCase("Q")) {
+		if (partOfSide.equalsIgnoreCase("Q")) {
 			System.out.println(QUIT_MESSAGE);
 			System.exit(0);
 		}
 		throw new IllegalArgumentException();
 	}
 
-	private boolean isLeft(String command) {
-		// if char comes with ' = right -> if string length is 2 = right / 1 = left
-		return command.length() == 1;
-	}
-
-	private String pushString(String command) {
-		String string = getString(command);
-		int cut = Math.abs(CHANGE) % SIZE; // cut = 1
-		if (isLeft(command)) {
-			return string.substring(cut) + string.substring(0, cut);
-		}
-		return string.substring(string.length() - cut) + string.substring(0, string.length() - cut);
-	}
-
 	public void setString(String command, String stringPushed) {
-		System.out.println();
-		System.out.println(command);
 		String firstCommandComponent = String.valueOf(command.charAt(0));
 		if (firstCommandComponent.equalsIgnoreCase("U")) {
 			setUpperString(stringPushed);
@@ -148,12 +132,5 @@ public class Side {
 			return;
 		}
 		throw new IllegalArgumentException();
-	}
-
-	public void changeCube(String command) {
-		// push string according to command
-		String stringPushed = pushString(command);
-		// put it back to cube
-		setString(command, stringPushed);
 	}
 }

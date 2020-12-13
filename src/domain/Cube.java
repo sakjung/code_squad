@@ -1,6 +1,5 @@
 package domain;
 
-import controller.CommandComponents;
 import controller.Controls;
 
 import java.util.ArrayList;
@@ -25,19 +24,19 @@ public class Cube {
 
 	private static final List<Side> sides = new ArrayList<>();
 
-	static {
+	{
 		for (Color color : Color.values()) {
 			addSide(new Side(color.getLocation(), color.toString()));
 		}
 	}
 
-	private static void addSide(Side side) {
+	private void addSide(Side side) {
 		sides.add(side);
 	}
 
 	private Side getSide(String location) {
 		return sides.stream()
-				.filter(side -> side.getLocation().equalsIgnoreCase(location))
+				.filter(side -> side.getLocationInCube().equalsIgnoreCase(location))
 				.findFirst()
 				.orElseThrow(() -> new NoSuchElementException());
 	}

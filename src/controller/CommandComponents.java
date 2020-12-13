@@ -11,7 +11,7 @@ public enum CommandComponents {
 	B("B"),
 	L("L"),
 	D("D"),
-	CLOCKWISE("'"),
+	ANTI_CLOCKWISE("'"),
 	TWICE("2");
 
 	private final String commandComponent;
@@ -42,17 +42,17 @@ public enum CommandComponents {
 	}
 
 	public static boolean isClockWise(String fullCommand) {
-		return fullCommand.contains(CLOCKWISE.commandComponent);
+		return !fullCommand.contains(ANTI_CLOCKWISE.commandComponent);
 	}
 
 	public static String getControlCommand(String fullCommand) {
 		if (isClockWise(fullCommand)) {
-			return getFirstCommandComponent(fullCommand) + "'";
+			return getFirstCommandComponent(fullCommand);
 		}
-		return getFirstCommandComponent(fullCommand);
+		return getFirstCommandComponent(fullCommand) + "'";
 	}
 
 	public static boolean isHalfRotate(String fullCommand) {
-		return !fullCommand.contains(TWICE.commandComponent);
+		return fullCommand.contains(TWICE.commandComponent);
 	}
 }
