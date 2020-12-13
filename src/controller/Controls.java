@@ -2,27 +2,34 @@ package controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public enum Controls {
-	UR(Arrays.asList(Commands.F.getCommand(), Commands.R.getCommand(), Commands.B.getCommand(), Commands.L.getCommand()), "U"),
-	UL(Arrays.asList(Commands.F.getCommand(), Commands.L.getCommand(), Commands.B.getCommand(), Commands.R.getCommand()), "U"),
-	DR(Arrays.asList(Commands.F.getCommand(), Commands.L.getCommand(), Commands.B.getCommand(), Commands.R.getCommand()), "D"),
-	DL(Arrays.asList(Commands.F.getCommand(), Commands.R.getCommand(), Commands.B.getCommand(), Commands.L.getCommand()), "D"),
-	BR(Arrays.asList(Commands.U.getCommand(), Commands.R.getCommand(), Commands.D.getCommand(), Commands.L.getCommand()), "U"),
-	BL(Arrays.asList(Commands.U.getCommand(), Commands.L.getCommand(), Commands.D.getCommand(), Commands.R.getCommand()), "U"),
-	FR(Arrays.asList(Commands.U.getCommand(), Commands.L.getCommand(), Commands.D.getCommand(), Commands.R.getCommand()), "D"),
-	FL(Arrays.asList(Commands.U.getCommand(), Commands.R.getCommand(), Commands.D.getCommand(), Commands.L.getCommand()), "D"),
-	LR(Arrays.asList(Commands.U.getCommand(), Commands.B.getCommand(), Commands.D.getCommand(), Commands.F.getCommand()), "U"),
-	LL(Arrays.asList(Commands.U.getCommand(), Commands.F.getCommand(), Commands.D.getCommand(), Commands.B.getCommand()), "U"),
-	RR(Arrays.asList(Commands.U.getCommand(), Commands.F.getCommand(), Commands.D.getCommand(), Commands.B.getCommand()), "D"),
-	RL(Arrays.asList(Commands.U.getCommand(), Commands.B.getCommand(), Commands.D.getCommand(), Commands.F.getCommand()), "D");
+	UR("U'", Arrays.asList(CommandComponents.F.getCommandComponent(), CommandComponents.R.getCommandComponent(), CommandComponents.B.getCommandComponent(), CommandComponents.L.getCommandComponent()), "U"),
+	UL("U", Arrays.asList(CommandComponents.F.getCommandComponent(), CommandComponents.L.getCommandComponent(), CommandComponents.B.getCommandComponent(), CommandComponents.R.getCommandComponent()), "U"),
+	DR("D'", Arrays.asList(CommandComponents.F.getCommandComponent(), CommandComponents.L.getCommandComponent(), CommandComponents.B.getCommandComponent(), CommandComponents.R.getCommandComponent()), "D"),
+	DL("D", Arrays.asList(CommandComponents.F.getCommandComponent(), CommandComponents.R.getCommandComponent(), CommandComponents.B.getCommandComponent(), CommandComponents.L.getCommandComponent()), "D"),
+	BR("B'", Arrays.asList(CommandComponents.U.getCommandComponent(), CommandComponents.R.getCommandComponent(), CommandComponents.D.getCommandComponent(), CommandComponents.L.getCommandComponent()), "U"),
+	BL("B", Arrays.asList(CommandComponents.U.getCommandComponent(), CommandComponents.L.getCommandComponent(), CommandComponents.D.getCommandComponent(), CommandComponents.R.getCommandComponent()), "U"),
+	FR("F'", Arrays.asList(CommandComponents.U.getCommandComponent(), CommandComponents.L.getCommandComponent(), CommandComponents.D.getCommandComponent(), CommandComponents.R.getCommandComponent()), "D"),
+	FL("F", Arrays.asList(CommandComponents.U.getCommandComponent(), CommandComponents.R.getCommandComponent(), CommandComponents.D.getCommandComponent(), CommandComponents.L.getCommandComponent()), "D"),
+	LR("L'", Arrays.asList(CommandComponents.U.getCommandComponent(), CommandComponents.B.getCommandComponent(), CommandComponents.D.getCommandComponent(), CommandComponents.F.getCommandComponent()), "U"),
+	LL("L", Arrays.asList(CommandComponents.U.getCommandComponent(), CommandComponents.F.getCommandComponent(), CommandComponents.D.getCommandComponent(), CommandComponents.B.getCommandComponent()), "U"),
+	RR("R'", Arrays.asList(CommandComponents.U.getCommandComponent(), CommandComponents.F.getCommandComponent(), CommandComponents.D.getCommandComponent(), CommandComponents.B.getCommandComponent()), "D"),
+	RL("R", Arrays.asList(CommandComponents.U.getCommandComponent(), CommandComponents.B.getCommandComponent(), CommandComponents.D.getCommandComponent(), CommandComponents.F.getCommandComponent()), "D");
 
+	private final String command;
 	private final List<String> order;
 	private final String stringPosition;
 
-	Controls(List<String> order, String stringPosition) {
+	Controls(String command, List<String> order, String stringPosition) {
+		this.command = command;
 		this.order = order;
 		this.stringPosition = stringPosition;
+	}
+
+	public String getCommand() {
+		return command;
 	}
 
 	public List<String> getOrder() {
@@ -31,6 +38,12 @@ public enum Controls {
 
 	public String getStringPosition() {
 		return stringPosition;
+	}
+
+	public static Optional<Controls> getControl(String wholeCommand) {
+		return Arrays.stream(values())
+				.filter(control -> control.command.equalsIgnoreCase(CommandComponents.getFullCommand(wholeCommand)))
+				.findAny();
 	}
 
 }

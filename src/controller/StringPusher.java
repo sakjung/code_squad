@@ -25,7 +25,7 @@ public class StringPusher {
 		if (cut == 0) {
 			return;
 		}
-		if (Commands.isClockWise(command)) {
+		if (CommandComponents.isClockWise(command)) {
 			// push to left
 			string = string.substring(cut) + string.substring(0, cut);
 			return;

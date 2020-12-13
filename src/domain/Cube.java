@@ -1,9 +1,8 @@
 package domain;
 
-import controller.Commands;
+import controller.CommandComponents;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +35,7 @@ public class Cube {
 
 	public List<Side> getSidesToChange(String command) {
 		return sides.stream()
-				.filter(side -> Commands.getLocationsToChange(command).contains(side.getLocation()))
+				.filter(side -> CommandComponents.getLocationsToChange(command).contains(side.getLocation()))
 				.collect(Collectors.toList());
 	}
 }

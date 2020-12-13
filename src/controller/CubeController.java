@@ -16,8 +16,8 @@ public class CubeController {
 
 	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
 		for (char commandComponent : userInput.toCharArray()) {
-			if (!Commands.commands().contains(Character.toString(commandComponent)) &&
-			!Commands.commandsToLowerCase().contains(Character.toString(commandComponent))) {
+			if (!CommandComponents.commandComponents().contains(Character.toString(commandComponent)) &&
+			!CommandComponents.commandsToLowerCase().contains(Character.toString(commandComponent))) {
 				throw new IllegalArgumentException(Messages.NOT_AVAILABLE_INPUT_ERROR.getMessage());
 			}
 		}
@@ -55,7 +55,7 @@ public class CubeController {
 
 	private static boolean hasAdditionalCommandComponent(Queue<String> commands) {
 		return !commands.isEmpty() &&
-				(commands.peek().equals(Commands.TO_RIGHT.getCommand()) || commands.peek().equals(Commands.TWICE.getCommand()));
+				(commands.peek().equals(CommandComponents.CLOCKWISE.getCommandComponent()) || commands.peek().equals(CommandComponents.TWICE.getCommandComponent()));
 	}
 
 	private static String createSingleCommand(Queue<String> commands) {
