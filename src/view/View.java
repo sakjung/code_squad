@@ -34,7 +34,7 @@ public class View {
 		return padRight(String.join(" ", sides.get(0).getSide()[row]),10)
 				+ padRight(String.join(" ", sides.get(1).getSide()[row]),10)
 				+ padRight(String.join(" ", sides.get(2).getSide()[row]),10)
-				+ String.join(" ", sides.get(2).getSide()[row]);
+				+ String.join(" ", sides.get(3).getSide()[row]);
 	}
 
 	private static void showFourSides(List<Side> sides) {

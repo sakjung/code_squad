@@ -9,8 +9,6 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class CubeController {
-	private static List<String> commands = new ArrayList<>();
-
 	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
 		for (char commandComponent : userInput.toCharArray()) {
 			if (!CommandComponents.commandComponents().contains(Character.toString(commandComponent)) &&
@@ -68,6 +66,7 @@ public class CubeController {
 
 	private static List<String> createCommands(Scanner scanner) {
 		Queue<String> commandComponents = getCommandComponents(scanner);
+		List<String> commands = new ArrayList<>();
 		while (!commandComponents.isEmpty()) {
 			String command = createSingleCommand(commandComponents);
 			commands.add(command);
@@ -95,8 +94,7 @@ public class CubeController {
 	}
 
 	public static void playCube(Cube cube, Scanner scanner) {
-		createCommands(scanner);
-		for (String command : commands) {
+		for (String command : createCommands(scanner)) {
 			if (command.equalsIgnoreCase(CommandComponents.Q.getCommandComponent())) {
 				System.out.println(Messages.QUIT_MESSAGE.getMessage());
 				return;
