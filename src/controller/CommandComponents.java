@@ -45,14 +45,14 @@ public enum CommandComponents {
 		return fullCommand.contains(CLOCKWISE.commandComponent);
 	}
 
-	public static boolean isHalfRotate(String fullCommand) {
-		return !fullCommand.contains(TWICE.commandComponent);
-	}
-
 	public static String getControlCommand(String fullCommand) {
 		if (isClockWise(fullCommand)) {
 			return getFirstCommandComponent(fullCommand) + "'";
 		}
 		return getFirstCommandComponent(fullCommand);
+	}
+
+	public static boolean isHalfRotate(String fullCommand) {
+		return !fullCommand.contains(TWICE.commandComponent);
 	}
 }

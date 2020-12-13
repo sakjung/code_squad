@@ -10,10 +10,6 @@ public class colorPusher {
 	private static final int QUARTER_ROTATE = 3;
 	private static final int HALF_ROTATE = 6;
 
-	private String string;
-	private int numberOfPush;
-	private String colorPosition;
-
 	private String joinFourSides(List<Side> sides, String colorPosition) {
 		return sides.stream()
 				.map(side -> side.getString(colorPosition))
@@ -24,6 +20,13 @@ public class colorPusher {
 		List<Side> sides = cube.getSidesToChange(fullCommand);
 		String colorPosition = Controls.getControl(fullCommand).getColorPosition();
 		return joinFourSides(sides, colorPosition);
+	}
+
+	private int getNumberOfPush(String fullCommand) {
+		if (CommandComponents.isHalfRotate(fullCommand)) {
+			return HALF_ROTATE;
+		}
+		return QUARTER_ROTATE;
 	}
 
 	public void pushString(String command, String string) {
