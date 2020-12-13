@@ -2,7 +2,7 @@ package controller;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 public enum Controls {
 	UR("U'", Arrays.asList(CommandComponents.F.getCommandComponent(), CommandComponents.R.getCommandComponent(), CommandComponents.B.getCommandComponent(), CommandComponents.L.getCommandComponent()), "U"),
@@ -40,10 +40,10 @@ public enum Controls {
 		return stringPosition;
 	}
 
-	public static Optional<Controls> getControl(String wholeCommand) {
+	public static Controls getControl(String fullCommand) {
 		return Arrays.stream(values())
-				.filter(control -> control.command.equalsIgnoreCase(CommandComponents.getFullCommand(wholeCommand)))
-				.findAny();
+				.filter(control -> control.command.equalsIgnoreCase(CommandComponents.getControlCommand(fullCommand)))
+				.findAny()
+				.orElseThrow(() -> new NoSuchElementException());
 	}
-
 }

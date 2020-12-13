@@ -37,22 +37,22 @@ public enum CommandComponents {
 				.collect(Collectors.toList());
 	}
 
-	private static String getFirstCommandComponent(String wholeCommand) {
-		return Character.toString(wholeCommand.charAt(0));
+	private static String getFirstCommandComponent(String fullCommand) {
+		return Character.toString(fullCommand.charAt(0));
 	}
 
-	public static boolean isClockWise(String wholeCommand) {
-		return wholeCommand.contains(CLOCKWISE.commandComponent);
+	public static boolean isClockWise(String fullCommand) {
+		return fullCommand.contains(CLOCKWISE.commandComponent);
 	}
 
-	public static boolean isHalfRotate(String wholeCommand) {
-		return !wholeCommand.contains(TWICE.commandComponent);
+	public static boolean isHalfRotate(String fullCommand) {
+		return !fullCommand.contains(TWICE.commandComponent);
 	}
 
-	public static String getFullCommand(String wholeCommand) {
-		if (isClockWise(wholeCommand)) {
-			return getFirstCommandComponent(wholeCommand) + "'";
+	public static String getControlCommand(String fullCommand) {
+		if (isClockWise(fullCommand)) {
+			return getFirstCommandComponent(fullCommand) + "'";
 		}
-		return getFirstCommandComponent(wholeCommand);
+		return getFirstCommandComponent(fullCommand);
 	}
 }
