@@ -79,8 +79,9 @@ public class CubeController {
 	}
 
 	private static void changeCube(Cube cube, String fullCommand) {
-		//
-
+		// concat colors of four sides
+		// push colors
+		// renew colors of four sides
 	}
 
 	private static void runCommand(Cube cube, String fullCommand) {

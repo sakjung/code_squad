@@ -29,21 +29,16 @@ public class colorPusher {
 		return QUARTER_ROTATE;
 	}
 
-	public void pushString(String command, String string) {
-		int cut = Math.abs(numberOfPush) % string.length();
+	public String pushString(String fullCommand, String concatenatedColors) {
+		int cut = Math.abs(getNumberOfPush(fullCommand)) % concatenatedColors.length();
 		if (cut == 0) {
-			return;
+			return concatenatedColors;
 		}
-		if (CommandComponents.isClockWise(command)) {
-			// push to left
-			string = string.substring(cut) + string.substring(0, cut);
-			return;
+		if (CommandComponents.isClockWise(fullCommand)) {
+			// push to right
+			return concatenatedColors.substring(concatenatedColors.length() - cut) + concatenatedColors.substring(0, concatenatedColors.length() - cut);
 		}
-		// push to right
-		string = string.substring(string.length() - cut) + string.substring(0, string.length() - cut);
-	}
-
-	public String getString() {
-		return string;
+		// push to left
+		return concatenatedColors.substring(cut) + concatenatedColors.substring(0, cut);
 	}
 }
