@@ -112,6 +112,7 @@ public class CubeController {
 			if (isCorrect(playerCube, answerCube)) {
 				System.out.println(Messages.CONGRATULATIONS.getMessage());
 				View.printQuitMessages(playerCube);
+				return;
 			}
 		}
 		playCube(playerCube, answerCube, scanner);
