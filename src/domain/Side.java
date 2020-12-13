@@ -22,6 +22,10 @@ public class Side {
 		return locationInCube;
 	}
 
+	public String[][] getSide() {
+		return side;
+	}
+
 	private String[][] createSide(String color) {
 		String[][] side = new String[3][3];
 		for (int i = 0; i < SIZE; i++) {
@@ -32,10 +36,13 @@ public class Side {
 		return side;
 	}
 
-	public void showSide() {
-		for (String[] row : side) {
-			System.out.println(String.join(" ", row));
-		}
+	public String[][] createEmptySide() {
+		String[][] emptySide = {
+				{" ", " ", " "},
+				{" ", " ", " "},
+				{" ", " ", " "}
+		};
+		return emptySide;
 	}
 
 	private String getRightString() {
@@ -103,10 +110,6 @@ public class Side {
 		}
 		if (partOfSide.equalsIgnoreCase(CommandComponents.L.getCommandComponent())) {
 			return getLeftString();
-		}
-		if (partOfSide.equalsIgnoreCase("Q")) {
-			System.out.println(QUIT_MESSAGE);
-			System.exit(0);
 		}
 		throw new IllegalArgumentException();
 	}

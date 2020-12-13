@@ -1,6 +1,7 @@
 package controller;
 
 import domain.Cube;
+import domain.Side;
 import view.Messages;
 import view.View;
 
@@ -8,11 +9,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class CubeController {
-	private static final List<String> commands = new ArrayList<>();
-
-	public static List<String> commands() {
-		return Collections.unmodifiableList(commands);
-	}
+	private static List<String> commands = new ArrayList<>();
 
 	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
 		for (char commandComponent : userInput.toCharArray()) {
@@ -84,19 +81,28 @@ public class CubeController {
 		// push colors
 		String pushedColors = colorController.push(fullCommand, concatenatedColors);
 		// renew colors of four sides
-
+		colorController.renewSides(cube, fullCommand, pushedColors);
 	}
 
 	private static void runCommand(Cube cube, String fullCommand) {
 		// show command
+		System.out.println(fullCommand);
 		// change cube
+		changeCube(cube, fullCommand);
 		// show cube status
+		View.showCube(cube);
+		System.out.println();
 	}
 
 	public static void playCube(Cube cube, Scanner scanner) {
+		createCommands(scanner);
 		for (String command : commands) {
+			if (command.equalsIgnoreCase(CommandComponents.Q.getCommandComponent())) {
+				System.out.println(Messages.QUIT_MESSAGE.getMessage());
+				return;
+			}
 			runCommand(cube, command);
 		}
-		System.out.println();
+		playCube(cube, scanner);
 	}
 }

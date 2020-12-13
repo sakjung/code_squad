@@ -8,26 +8,16 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class Cube {
-	private enum Color {
-		B("U"),W("F"),O("L"),G("R"),Y("B"),R("D");
-
-		private final String location;
-
-		Color(String location) {
-			this.location = location;
-		}
-
-		private String getLocation() {
-			return location;
-		}
-	}
-
-	private static final List<Side> sides = new ArrayList<>();
+	private final List<Side> sides = new ArrayList<>();
 
 	{
 		for (Color color : Color.values()) {
 			addSide(new Side(color.getLocation(), color.toString()));
 		}
+	}
+
+	public List<Side> getSides() {
+		return sides;
 	}
 
 	private void addSide(Side side) {
@@ -47,5 +37,19 @@ public class Cube {
 				.stream()
 				.map(location -> getSide(location))
 				.collect(Collectors.toList());
+	}
+
+	private enum Color {
+		B("U"), W("F"), O("L"), G("R"), Y("B"), R("D");
+
+		private final String location;
+
+		Color(String location) {
+			this.location = location;
+		}
+
+		private String getLocation() {
+			return location;
+		}
 	}
 }

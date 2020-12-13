@@ -11,6 +11,7 @@ public enum CommandComponents {
 	B("B"),
 	L("L"),
 	D("D"),
+	Q("Q"),
 	ANTI_CLOCKWISE("'"),
 	TWICE("2");
 
