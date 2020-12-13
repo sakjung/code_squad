@@ -3,9 +3,7 @@ package domain;
 import controller.CommandComponents;
 
 public class Side {
-	private static final int SIZE = 3;
-	private static final int CHANGE = 1;
-	private static final String QUIT_MESSAGE = "Bye~";
+	public static final int SIZE = 3;
 
 	/* CUBE
 	 * R R W
@@ -113,21 +111,20 @@ public class Side {
 		throw new IllegalArgumentException();
 	}
 
-	public void setString(String command, String stringPushed) {
-		String firstCommandComponent = String.valueOf(command.charAt(0));
-		if (firstCommandComponent.equalsIgnoreCase("U")) {
+	public void setString(String partOfSide, String stringPushed) {
+		if (partOfSide.equalsIgnoreCase(CommandComponents.U.getCommandComponent())) {
 			setUpperString(stringPushed);
 			return;
 		}
-		if (firstCommandComponent.equalsIgnoreCase("B")) {
+		if (partOfSide.equalsIgnoreCase(CommandComponents.D.getCommandComponent())) {
 			setBottomString(stringPushed);
 			return;
 		}
-		if (firstCommandComponent.equalsIgnoreCase("R")) {
+		if (partOfSide.equalsIgnoreCase(CommandComponents.R.getCommandComponent())) {
 			setRightString(stringPushed);
 			return;
 		}
-		if (firstCommandComponent.equalsIgnoreCase("L")) {
+		if (partOfSide.equalsIgnoreCase(CommandComponents.L.getCommandComponent())) {
 			setLeftString(stringPushed);
 			return;
 		}

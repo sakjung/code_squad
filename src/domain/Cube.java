@@ -43,7 +43,7 @@ public class Cube {
 
 	public List<Side> getSidesToChange(String fullCommand) {
 		return Controls.getControl(fullCommand)
-				.getOrder()
+				.getSidesToControl()
 				.stream()
 				.map(location -> getSide(location))
 				.collect(Collectors.toList());

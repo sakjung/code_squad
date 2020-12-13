@@ -82,7 +82,7 @@ public class CubeController {
 		// concat colors of four sides
 		String concatenatedColors = colorController.createConcatenatedColors(cube, fullCommand);
 		// push colors
-		String pushedColors = colorController.pushString(fullCommand, concatenatedColors);
+		String pushedColors = colorController.push(fullCommand, concatenatedColors);
 		// renew colors of four sides
 
 	}
