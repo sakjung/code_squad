@@ -4,7 +4,6 @@ import domain.Cube;
 import domain.Side;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,14 +44,13 @@ public class colorController {
 	}
 
 	private static List<String> cutColors(String pushedColors) {
-		return Arrays.asList(pushedColors.split("(?<=\\G.{3})"));
+		return Arrays.asList(pushedColors.split("(?<=\\G.{3})")); // cut colors by 3
 	}
 
 	public static void renewSides(Cube cube, String fullCommand, String pushedColors) {
 		String partOfSide = Controls.getControl(fullCommand).getPartOfSide();
 		List<Side> sidesToChange = cube.getSidesToChange(fullCommand);
 		List<String> colorChunks = cutColors(pushedColors);
-		// cut colors by 3
 		for (int i = 0; i < sidesToChange.size(); i++) {
 			sidesToChange.get(i).setString(partOfSide, colorChunks.get(i));
 		}

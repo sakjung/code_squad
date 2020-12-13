@@ -5,11 +5,6 @@ import controller.CommandComponents;
 public class Side {
 	public static final int SIZE = 3;
 
-	/* CUBE
-	 * R R W
-	 * G C W
-	 * G B B */
-
 	private final String locationInCube;
 	private final String[][] side;
 
@@ -34,15 +29,6 @@ public class Side {
 			}
 		}
 		return side;
-	}
-
-	public String[][] createEmptySide() {
-		String[][] emptySide = {
-				{" ", " ", " "},
-				{" ", " ", " "},
-				{" ", " ", " "}
-		};
-		return emptySide;
 	}
 
 	private String getRightString() {
@@ -71,7 +57,7 @@ public class Side {
 	private void setLeftString(String stringPushed) {
 		char[] newStrings = stringPushed.toCharArray();
 		for (int row = 0; row < SIZE; row++) {
-			side[row][1] = String.valueOf(newStrings[row]);
+			side[row][0] = String.valueOf(newStrings[row]);
 		}
 	}
 
@@ -108,10 +94,7 @@ public class Side {
 		if (partOfSide.equalsIgnoreCase(CommandComponents.R.getCommandComponent())) {
 			return getRightString();
 		}
-		if (partOfSide.equalsIgnoreCase(CommandComponents.L.getCommandComponent())) {
-			return getLeftString();
-		}
-		throw new IllegalArgumentException();
+		return getLeftString();
 	}
 
 	public void setString(String partOfSide, String stringPushed) {
@@ -127,10 +110,6 @@ public class Side {
 			setRightString(stringPushed);
 			return;
 		}
-		if (partOfSide.equalsIgnoreCase(CommandComponents.L.getCommandComponent())) {
-			setLeftString(stringPushed);
-			return;
-		}
-		throw new IllegalArgumentException();
+		setLeftString(stringPushed);
 	}
 }

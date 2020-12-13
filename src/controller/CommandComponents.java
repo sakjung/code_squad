@@ -38,19 +38,12 @@ public enum CommandComponents {
 				.collect(Collectors.toList());
 	}
 
-	private static String getFirstCommandComponent(String fullCommand) {
+	public static String getFirstCommandComponent(String fullCommand) {
 		return Character.toString(fullCommand.charAt(0));
 	}
 
 	public static boolean isClockWise(String fullCommand) {
 		return !fullCommand.contains(ANTI_CLOCKWISE.commandComponent);
-	}
-
-	public static String getControlCommand(String fullCommand) {
-		if (isClockWise(fullCommand)) {
-			return getFirstCommandComponent(fullCommand);
-		}
-		return getFirstCommandComponent(fullCommand) + "'";
 	}
 
 	public static boolean isHalfRotate(String fullCommand) {
