@@ -22,7 +22,7 @@ public class CubeController {
 
 	private static void validateMalformedCommand(String userInput) {
 		Pattern consecutivePattern = Pattern.compile("2{2}|'{2}"); // consecutive 2 or '
-		Pattern wrongPositionPattern = Pattern.compile("2'"); // ' after 2
+		Pattern wrongPositionPattern = Pattern.compile("2'"); // ' comes after 2
 
 		if (consecutivePattern.matcher(userInput).find() || wrongPositionPattern.matcher(userInput).find()) {
 			throw new IllegalArgumentException(Messages.MALFORMED_INPUT_ERROR.getMessage());
@@ -77,21 +77,15 @@ public class CubeController {
 	}
 
 	private static void changeCube(Cube cube, String fullCommand) {
-		// concat colors of four sides
 		String concatenatedColors = colorController.createConcatenatedColors(cube, fullCommand);
-		// push colors
 		String pushedColors = colorController.push(fullCommand, concatenatedColors);
-		// renew colors of four sides
 		colorController.renewSides(cube, fullCommand, pushedColors);
 		NUMBER_OF_CONTROLS++;
 	}
 
 	private static void runCommand(Cube cube, String fullCommand) {
-		// show command
-		System.out.println(fullCommand);
-		// change cube
+		System.out.println(fullCommand.toUpperCase());
 		changeCube(cube, fullCommand);
-		// show cube status
 		View.showCube(cube);
 		System.out.println();
 	}
