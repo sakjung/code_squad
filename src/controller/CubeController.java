@@ -1,6 +1,7 @@
 package controller;
 
 import domain.Cube;
+import domain.Side;
 import view.Messages;
 import view.View;
 
@@ -9,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class CubeController {
 	public static int NUMBER_OF_CONTROLS = 0;
-	private static int NUMBER_OF_MIX = 50;
+	private static final int NUMBER_OF_MIX = 50;
 
 	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
 		for (char commandComponent : userInput.toCharArray()) {
@@ -91,7 +92,14 @@ public class CubeController {
 	}
 
 	public static boolean isCorrect(Cube playerCube, Cube answerCube) {
-		return playerCube.getSides().equals(answerCube.getSides());
+		List<Side> playerSides = playerCube.getSides();
+		List<Side> answerSides = answerCube.getSides();
+		for (int i = 0; i < Cube.NUMBER_OF_SIDES; i++) {
+			if (!Arrays.deepEquals(playerSides.get(i).getSide(), answerSides.get(i).getSide())) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public static void playCube(Cube playerCube, Cube answerCube, Scanner scanner) {
@@ -109,10 +117,17 @@ public class CubeController {
 		playCube(playerCube, answerCube, scanner);
 	}
 
+	private static void mixCube(Cube playerCube) {
+		for (int mix = 1; mix <= NUMBER_OF_MIX; mix++) {
+			double randomToken = Math.random();
+			runCommand(playerCube, getRandomCommand(randomToken));
+		}
+	}
+
 	public static Cube generatePlayerCube(Cube answerCube) {
 		Cube playerCube = new Cube();
-//		CubeController.mixCube(playerCube);
-		changeCube(playerCube, "U");
+		CubeController.mixCube(playerCube);
+		changeCube(playerCube, "U2");
 		if (!isCorrect(playerCube, answerCube)) {
 			return playerCube;
 		}
@@ -122,12 +137,5 @@ public class CubeController {
 	private static String getRandomCommand(double randomToken) {
 		return CommandComponents.generateRandomFirstCommandComponent(randomToken)
 				+ CommandComponents.generateRandomAdditionalComponents(randomToken);
-	}
-
-	public static void mixCube(Cube playerCube) {
-		for (int mix = 1; mix <= NUMBER_OF_MIX; mix++) {
-			double randomToken = Math.random();
-			runCommand(playerCube, getRandomCommand(randomToken));
-		}
 	}
 }

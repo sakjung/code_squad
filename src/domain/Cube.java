@@ -8,6 +8,8 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public class Cube {
+	public static final int NUMBER_OF_SIDES = 6;
+
 	private final List<Side> sides = new ArrayList<>();
 	private long startTime;
 
