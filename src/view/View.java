@@ -1,10 +1,12 @@
 package view;
 
+import controller.CubeController;
 import domain.Cube;
 import domain.Side;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class View {
 	private static final String SPACE = " ";
@@ -51,5 +53,17 @@ public class View {
 		System.out.println();
 		showSingleSide(sides.get(5));
 		System.out.println();
+	}
+
+	private static String getTimeElapsed(Cube cube) {
+		long elapsedTime = System.nanoTime() - cube.getStartTime();
+		long seconds = TimeUnit.SECONDS.convert(elapsedTime, TimeUnit.NANOSECONDS);
+		return String.format("%d:%02d:%02d", seconds / 3600, (seconds % 3600) / 60, (seconds % 60));
+	}
+
+	public static void printQuitMessages(Cube cube) {
+		System.out.println(getTimeElapsed(cube));
+		System.out.println(Messages.NUMBER_OF_CONTROLS.getMessage() + CubeController.NUMBER_OF_CONTROLS);
+		System.out.println(Messages.QUIT_MESSAGE.getMessage());
 	}
 }

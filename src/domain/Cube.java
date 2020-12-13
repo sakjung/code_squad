@@ -9,11 +9,13 @@ import java.util.stream.Collectors;
 
 public class Cube {
 	private final List<Side> sides = new ArrayList<>();
+	private long startTime;
 
 	{
 		for (Color color : Color.values()) {
 			addSide(new Side(color.getLocation(), color.toString()));
 		}
+		this.startTime = System.nanoTime();
 	}
 
 	public List<Side> getSides() {
@@ -22,6 +24,10 @@ public class Cube {
 
 	private void addSide(Side side) {
 		sides.add(side);
+	}
+
+	public long getStartTime() {
+		return startTime;
 	}
 
 	private Side getSide(String location) {

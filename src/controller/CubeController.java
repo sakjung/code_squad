@@ -9,6 +9,8 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class CubeController {
+	public static int NUMBER_OF_CONTROLS = 0;
+
 	private static void validateAvailableCommandComponents(String userInput) throws IllegalArgumentException {
 		for (char commandComponent : userInput.toCharArray()) {
 			if (!CommandComponents.commandComponents().contains(Character.toString(commandComponent)) &&
@@ -81,6 +83,7 @@ public class CubeController {
 		String pushedColors = colorController.push(fullCommand, concatenatedColors);
 		// renew colors of four sides
 		colorController.renewSides(cube, fullCommand, pushedColors);
+		NUMBER_OF_CONTROLS++;
 	}
 
 	private static void runCommand(Cube cube, String fullCommand) {
@@ -96,7 +99,7 @@ public class CubeController {
 	public static void playCube(Cube cube, Scanner scanner) {
 		for (String command : createCommands(scanner)) {
 			if (command.equalsIgnoreCase(CommandComponents.Q.getCommandComponent())) {
-				System.out.println(Messages.QUIT_MESSAGE.getMessage());
+				View.printQuitMessages(cube);
 				return;
 			}
 			runCommand(cube, command);
