@@ -14,25 +14,25 @@ public enum Commands {
 	TO_RIGHT("'"),
 	TWICE("2");
 
-	private String command;
+	private final String command;
 
 	Commands(String command) {
 		this.command = command;
 	}
 
-	public String command() {
+	public String getCommand() {
 		return command;
 	}
 
 	public static List<String> commands() {
 		return Arrays.stream(values())
-				.map(Commands::command)
+				.map(Commands::getCommand)
 				.collect(Collectors.toList());
 	}
 
 	public static List<String> commandsToLowerCase() {
 		return Arrays.stream(values())
-				.map(Commands::command)
+				.map(Commands::getCommand)
 				.map(String::toLowerCase)
 				.collect(Collectors.toList());
 	}
@@ -41,7 +41,7 @@ public enum Commands {
 		return Character.toString(command.charAt(0));
 	}
 
-	public static boolean isLeft(String command) {
+	public static boolean isClockWise(String command) {
 		return !command.contains(TO_RIGHT.command);
 	}
 
@@ -51,13 +51,14 @@ public enum Commands {
 
 	public static List<String> getLocationsToChange(String command) {
 		if (getFirstCommandComponent(command).equals(U.command)
-				|| getFirstCommandComponent(command).equals(D.command)) {
-			return Arrays.asList(F.command, B.command, L.command, R.command);
+		|| getFirstCommandComponent(command).equals(D.command)) {
+			return Arrays.asList(F.command, L.command, B.command, R.command);
 		}
 		if (getFirstCommandComponent(command).equals(F.command)
-				|| getFirstCommandComponent(command).equals(B.command)) {
-			return Arrays.asList(U.command, D.command, L.command, R.command);
+		|| getFirstCommandComponent(command).equals(B.command)) {
+			return Arrays.asList(U.command, R.command, D.command, L.command);
 		}
-		return Arrays.asList(F.command, B.command, U.command,D.command);
-	}
+		return Arrays.asList(U.command, F.command, D.command, B.command);
+	} // 나중에 수정하기
+
 }

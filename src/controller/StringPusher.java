@@ -12,25 +12,20 @@ public class StringPusher {
 	private int numberOfPush;
 	private String direction;
 
+	// what we need
+	// direction -> which part of side
+
 	// concat colors
 	private String concatenateColors(String command, List<Side> sides) {
-
-		if (Commands.isLeft()) {
-
-		}
+		// wow
 	}
 
-	private boolean isLeft() {
-		// positive + l || negative + r
-		return !direction.equalsIgnoreCase(Commands.TO_RIGHT.command());
-	}
-
-	public void pushString() {
+	public void pushString(String command, String string) {
 		int cut = Math.abs(numberOfPush) % string.length();
 		if (cut == 0) {
 			return;
 		}
-		if (isLeft()) {
+		if (Commands.isClockWise(command)) {
 			// push to left
 			string = string.substring(cut) + string.substring(0, cut);
 			return;
